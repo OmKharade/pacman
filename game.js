@@ -12,6 +12,11 @@ let blockSize = 20
 let wallSpaceWidth = blockSize/1.5
 let wallOffset = (blockSize - wallSpaceWidth)/2
 
+const DIRECTION_RIGHT = 4
+const DIRECTION_UP = 3
+const DIRECTION_LEFT = 2
+const DIRECTION_DOWN = 1
+
 let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -44,12 +49,14 @@ let gameLoop = () => {
 }
 
 let update = () => {
-
+    pacman.move()
 }
 
 let draw = () => {
     createRect(0,0, canvas.width, canvas.height,"black")
     drawWalls()
+
+    pacman.draw()
 }
 
 let gameInterval = setInterval(gameLoop, 1000/fps)
@@ -77,3 +84,10 @@ let drawWalls = () => {
     }
 }
 
+let createNewPacman = () =>{
+    pacman = new Player(blockSize,blockSize,blockSize,blockSize,blockSize/5)
+}
+
+
+createNewPacman()
+gameLoop()
