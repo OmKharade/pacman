@@ -6,6 +6,7 @@ class Player{
         this.height = height
         this.speed = speed
         this.direction = DIRECTION_RIGHT
+        this.nextDirection = this.direction
         this.currentFrame = 1
         this.frameCount = 7
 
@@ -15,7 +16,7 @@ class Player{
     }
 
     move(){
-        //this.changeDirectionIfPossible()
+        this.changeDirectionIfPossible()
         this.moveForwards()
         if(this.checkCollision()){
             this.moveBackwards()
@@ -71,6 +72,18 @@ class Player{
     changeDirection(){
     }
     changeDirectionIfPossible(){
+        if (this.direction == this.nextDirection) return
+
+        let dir = this.direction
+        this.direction = this.nextDirection
+        this.moveForwards()
+        if(this.checkCollision()){
+            this.moveBackwards()
+            this.direction = dir
+        }
+        else{
+            this.moveBackwards()
+        }
     }
     changeAnimation(){
         this.currentFrame = this.currentFrame == this.frameCount ? 1: this.currentFrame+1
