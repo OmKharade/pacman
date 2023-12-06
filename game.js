@@ -8,10 +8,10 @@ let createRect = (x,y,width,height,color) =>{
 }
 let fps = 30
 let blockSize = 20
+let score = 0
 
 let wallSpaceWidth = blockSize/1.5
 let wallOffset = (blockSize - wallSpaceWidth)/2
-
 const DIRECTION_RIGHT = 4
 const DIRECTION_UP = 3
 const DIRECTION_LEFT = 2
@@ -28,7 +28,7 @@ let map = [
     [1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1],
     [0, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0],
     [1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+    [1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
     [1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1],
     [0, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0],
@@ -50,13 +50,31 @@ let gameLoop = () => {
 
 let update = () => {
     pacman.move()
+    pacman.eat()
+}
+
+let food = () => {
+    for(let i=0; i<map.length;i++){
+        for(let j=0; j<map[0].length;j++){
+            if(map[i][j] == 2){
+                createRect(j*blockSize + blockSize/3,i*blockSize + blockSize/3, blockSize/4, blockSize/4, "yellow")
+            }
+        }
+    }
+}
+
+let drawScore = () => {
+    canvasContext.font = "20px fantasy"
+    canvasContext.fillStyle = "white"
+    canvasContext.fillText("Score : " +score,0,blockSize*(map.length+1)+10)
 }
 
 let draw = () => {
     createRect(0,0, canvas.width, canvas.height,"black")
     drawWalls()
-
+    food()
     pacman.draw()
+    drawScore()
 }
 
 let gameInterval = setInterval(gameLoop, 1000/fps)
