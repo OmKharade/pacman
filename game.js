@@ -45,6 +45,8 @@ let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
+let randomTarget = [{x:blockSize,y:blockSize},{x:blockSize,y:(map.length-2)*blockSize},{x:(map[0].length-2)*blockSize,y:blockSize},{x:(map[0].length-2)*blockSize,y:(map.length-2)*blockSize},]
+
 let gameLoop = () => {
     update()
     draw()
@@ -53,6 +55,9 @@ let gameLoop = () => {
 let update = () => {
     pacman.move()
     pacman.eat()
+    for(let i=0;i<ghosts.length;i++){
+        ghosts[i].move()
+    }
 }
 
 let food = () => {
