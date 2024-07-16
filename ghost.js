@@ -138,7 +138,7 @@ class Ghost{
         ]
         while(queue.length > 0){
             let popped = queue.shift()
-            if(popped.x = destX && popped.y == destY){
+            if(popped.x == destX && popped.y == destY){
                 return popped.moves[0]
             }
             else{
@@ -192,16 +192,6 @@ class Ghost{
         canvasContext.save()
         canvasContext.drawImage(ghostFrames,this.imageX,this.imageY,this.imageWidth,this.imageHeight,this.x,this.y,this.width,this.height)
         canvasContext.restore()
-        canvasContext.beginPath();
-        canvasContext.strokeStyle = "red";
-        canvasContext.arc(
-            this.x + blockSize / 2,
-            this.y + blockSize / 2,
-            this.range * blockSize,
-            0,
-            2 * Math.PI
-        );
-        canvasContext.stroke();
     }
     getMapX(){
         return parseInt(this.x/blockSize)
