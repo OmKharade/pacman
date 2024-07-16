@@ -136,6 +136,7 @@ class Ghost{
                 moves: []
             }
         ]
+        // BFS to find the shortest path
         while(queue.length > 0){
             let popped = queue.shift()
             if(popped.x == destX && popped.y == destY){
@@ -149,6 +150,7 @@ class Ghost{
                 }
             }
         }
+        // Return a default direction if no path is found (could be improved to handle better)
         return 1
     }
 
@@ -156,7 +158,7 @@ class Ghost{
         let queue = []
         let numOfRows = mp.length
         let numOfColumns = mp[0].length
-
+        // check if neighbor within bounds and not wall, add to queue
         if(popped.x -1 >= 0 && popped.x -1 < numOfRows &&
             mp[popped.y][popped.x-1] != 1){
                 let tempMoves = popped.moves.slice()
