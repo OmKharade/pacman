@@ -9,6 +9,7 @@ let createRect = (x,y,width,height,color) =>{
 let fps = 30
 let blockSize = 20
 let score = 0
+let lives = 5
 let ghosts = []
 let ghostLocations = [{x:0,y:0},{x:176,y:0},{x:0,y:121},{x:176,y:121},]
 
@@ -61,11 +62,18 @@ let update = () => {
     }
 }
 let onGhostCollision = () => {
+    lives--;
     restartPacmanAndGhosts()
+    if (lives == 0) {
+        gameOver()
+    }
 }
 let restartPacmanAndGhosts = () => {
     createNewPacman()
     createGhosts()
+}
+let gameOver = () =>{
+    clearInterval(gameInterval)
 }
 let food = () => {
     for(let i=0; i<map.length;i++){
@@ -80,7 +88,13 @@ let food = () => {
 let drawScore = () => {
     canvasContext.font = "20px fantasy"
     canvasContext.fillStyle = "white"
-    canvasContext.fillText("Score : " +score,0,blockSize*(map.length+1)+10)
+    canvasContext.fillText("Score : " +score,50,blockSize*(map.length+1)+10)
+}
+
+let drawLives = () => {
+    canvasContext.font = "20px fantasy";
+    canvasContext.fillStyle = "white";
+    canvasContext.fillText("Lives: "+ lives, 300, blockSize * (map.length + 1)+10);
 }
 
 let draw = () => {
@@ -90,6 +104,7 @@ let draw = () => {
     pacman.draw()
     drawScore()
     drawGhosts()
+    drawLives()
 }
 
 let gameInterval = setInterval(gameLoop, 1000/fps)
