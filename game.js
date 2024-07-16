@@ -56,8 +56,17 @@ let update = () => {
     pacman.move()
     pacman.eat()
     updateGhosts()
+    if (pacman.checkGhostCollision(ghosts)) {
+        onGhostCollision()
+    }
 }
-
+let onGhostCollision = () => {
+    restartPacmanAndGhosts()
+}
+let restartPacmanAndGhosts = () => {
+    createNewPacman()
+    createGhosts()
+}
 let food = () => {
     for(let i=0; i<map.length;i++){
         for(let j=0; j<map[0].length;j++){
