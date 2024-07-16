@@ -55,9 +55,7 @@ let gameLoop = () => {
 let update = () => {
     pacman.move()
     pacman.eat()
-    for(let i=0;i<ghosts.length;i++){
-        ghosts[i].move()
-    }
+    updateGhosts()
 }
 
 let food = () => {
@@ -74,11 +72,6 @@ let drawScore = () => {
     canvasContext.font = "20px fantasy"
     canvasContext.fillStyle = "white"
     canvasContext.fillText("Score : " +score,0,blockSize*(map.length+1)+10)
-}
-let drawGhosts = () => {
-    for(let i=0;i<ghosts.length;i++){
-        ghosts[i].draw()
-    }
 }
 
 let draw = () => {
