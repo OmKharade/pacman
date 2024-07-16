@@ -49,8 +49,8 @@ let map = [
 let randomTarget = [{x:blockSize,y:blockSize},{x:blockSize,y:(map.length-2)*blockSize},{x:(map[0].length-2)*blockSize,y:blockSize},{x:(map[0].length-2)*blockSize,y:(map.length-2)*blockSize},]
 
 let gameLoop = () => {
-    update()
     draw()
+    update()
 }
 
 let update = () => {
@@ -59,6 +59,10 @@ let update = () => {
     updateGhosts()
     if (pacman.checkGhostCollision(ghosts)) {
         onGhostCollision()
+    }
+    if (score == 219){
+        drawWin()
+        clearInterval(gameInterval)
     }
 }
 let onGhostCollision = () => {
@@ -73,6 +77,7 @@ let restartPacmanAndGhosts = () => {
     createGhosts()
 }
 let gameOver = () =>{
+    drawGameOver()
     clearInterval(gameInterval)
 }
 let food = () => {
@@ -96,6 +101,19 @@ let drawLives = () => {
     canvasContext.fillStyle = "white";
     canvasContext.fillText("Lives: "+ lives, 300, blockSize * (map.length + 1)+10);
 }
+
+let drawGameOver = () => {
+    canvasContext.font = "30px fantasy"
+    canvasContext.fillStyle = "white"
+    canvasContext.fillText("Game Over :( Try Again !",40,blockSize*(map.length+1)+70)
+}
+
+let drawWin = () => {
+    canvasContext.font = "30px fantasy"
+    canvasContext.fillStyle = "white"
+    canvasContext.fillText("You Win !! Play Again ?",45,blockSize*(map.length+1)+70)
+}
+
 
 let draw = () => {
     createRect(0,0, canvas.width, canvas.height,"black")
